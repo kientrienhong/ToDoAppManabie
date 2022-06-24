@@ -21,7 +21,7 @@ void main() {
     const name = 'coding';
     const ToDoTask toDoTask =
         ToDoTask(id: '1', name: name, status: ToDoTaskStatus.notYet);
-    test('Should return Unit when create successfully', () async {
+    test('Should return ToDoTask when create successfully', () async {
       when(toDoRepository.createToDoTask(name))
           .thenAnswer((_) async => const Right(toDoTask));
 
@@ -43,6 +43,31 @@ void main() {
       verify(toDoRepository.createToDoTask(name));
 
       expect(response, equals(Left(UnexpectedFailure())));
+    });
+
+    test('Should return LocalFailure when create fail with an local exception',
+        () async {
+      when(toDoRepository.createToDoTask(name))
+          .thenAnswer((_) async => Left(LocalFailure()));
+
+      final response = await useCase(CreateToDoUseCaseParam(name: name));
+
+      verify(toDoRepository.createToDoTask(name));
+
+      expect(response, equals(Left(LocalFailure())));
+    });
+
+    test(
+        'Should return ExistedNameFailure when create fail with an existed name exception',
+        () async {
+      when(toDoRepository.createToDoTask(name))
+          .thenAnswer((_) async => Left(ExistedNameFailure()));
+
+      final response = await useCase(CreateToDoUseCaseParam(name: name));
+
+      verify(toDoRepository.createToDoTask(name));
+
+      expect(response, equals(Left(ExistedNameFailure())));
     });
   });
 }

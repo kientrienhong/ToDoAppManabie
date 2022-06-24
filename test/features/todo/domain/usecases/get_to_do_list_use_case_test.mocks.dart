@@ -47,4 +47,11 @@ class MockToDoTaskRepository extends _i1.Mock
               returnValue: Future<_i2.Either<_i5.Failure, _i6.ToDoTask>>.value(
                   _FakeEither_0<_i5.Failure, _i6.ToDoTask>()))
           as _i4.Future<_i2.Either<_i5.Failure, _i6.ToDoTask>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, _i6.ToDoTask>> updateToDoTask(
+          String? id) =>
+      (super.noSuchMethod(Invocation.method(#updateToDoTask, [id]),
+              returnValue: Future<_i2.Either<_i5.Failure, _i6.ToDoTask>>.value(
+                  _FakeEither_0<_i5.Failure, _i6.ToDoTask>()))
+          as _i4.Future<_i2.Either<_i5.Failure, _i6.ToDoTask>>);
 }

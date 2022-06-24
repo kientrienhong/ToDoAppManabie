@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dartz/dartz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:to_do_app_manabie/core/exception/exception.dart';
 import 'package:to_do_app_manabie/features/todo/data/models/to_do_task_model.dart';
@@ -8,7 +7,8 @@ import 'package:to_do_app_manabie/features/todo/domain/entities/to_do_task.dart'
 
 abstract class ToDoTaskLocalDataSource {
   Future<List<ToDoTaskModel>> getToDoTaskList();
-  Future<ToDoTaskModel> createToDo(String name);
+  Future<ToDoTaskModel> createToDoTask(String name);
+  Future<ToDoTaskModel> updateToDoTask(String id);
 }
 
 class ToDoTaskLocalDataSourceSharedPreference
@@ -34,8 +34,16 @@ class ToDoTaskLocalDataSourceSharedPreference
     }
   }
 
+  ToDoTaskStatus notToDoTaskStatus(ToDoTaskStatus toDoTaskStatus) {
+    if (toDoTaskStatus == ToDoTaskStatus.done) {
+      return ToDoTaskStatus.notYet;
+    }
+
+    return ToDoTaskStatus.done;
+  }
+
   @override
-  Future<ToDoTaskModel> createToDo(String name) async {
+  Future<ToDoTaskModel> createToDoTask(String name) async {
     final json = sharedPreferences.getString('todos');
     ToDoTaskModel model;
     if (json != null) {
@@ -61,7 +69,31 @@ class ToDoTaskLocalDataSourceSharedPreference
   }
 
   @override
-  Future<List<ToDoTaskModel>> getToDoTaskList() {
-    throw UnimplementedError();
+  Future<List<ToDoTaskModel>> getToDoTaskList() async {
+    final json = sharedPreferences.getString('todos');
+    if (json != null) {
+      final listToDoMap = jsonDecode(json) as List<dynamic>;
+      return ToDoTaskModel.fromJsonToList(listToDoMap);
+    } else {
+      throw EmptyToDoException();
+    }
+  }
+
+  @override
+  Future<ToDoTaskModel> updateToDoTask(String id) async {
+    final json = sharedPreferences.getString('todos');
+    if (json != null) {
+      final listMap = jsonDecode(json) as List<dynamic>;
+      final listToDoTaskModel = ToDoTaskModel.fromJsonToList(listMap);
+      int indexFound =
+          listToDoTaskModel.indexWhere((element) => element.id == id);
+      ToDoTaskModel toDoTaskModelFound = listToDoTaskModel[indexFound];
+      listToDoTaskModel[indexFound] = toDoTaskModelFound.copyWith(
+          status: notToDoTaskStatus(toDoTaskModelFound.status));
+      await _checkSetString(listToDoTaskModel);
+      return listToDoTaskModel[indexFound];
+    } else {
+      throw UnexpectedException(message: "Have no to do to update");
+    }
   }
 }

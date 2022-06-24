@@ -38,8 +38,15 @@ class MockToDoTaskLocalDataSource extends _i1.Mock
                   Future<List<_i2.ToDoTaskModel>>.value(<_i2.ToDoTaskModel>[]))
           as _i4.Future<List<_i2.ToDoTaskModel>>);
   @override
-  _i4.Future<_i2.ToDoTaskModel> createToDo(String? name) => (super.noSuchMethod(
-          Invocation.method(#createToDo, [name]),
-          returnValue: Future<_i2.ToDoTaskModel>.value(_FakeToDoTaskModel_0()))
-      as _i4.Future<_i2.ToDoTaskModel>);
+  _i4.Future<_i2.ToDoTaskModel> createToDoTask(String? name) =>
+      (super.noSuchMethod(Invocation.method(#createToDoTask, [name]),
+              returnValue:
+                  Future<_i2.ToDoTaskModel>.value(_FakeToDoTaskModel_0()))
+          as _i4.Future<_i2.ToDoTaskModel>);
+  @override
+  _i4.Future<_i2.ToDoTaskModel> updateToDoTask(String? id) =>
+      (super.noSuchMethod(Invocation.method(#updateToDoTask, [id]),
+              returnValue:
+                  Future<_i2.ToDoTaskModel>.value(_FakeToDoTaskModel_0()))
+          as _i4.Future<_i2.ToDoTaskModel>);
 }

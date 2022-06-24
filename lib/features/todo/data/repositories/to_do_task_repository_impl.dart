@@ -15,17 +15,40 @@ class ToDoTaskRepositoryImpl extends ToDoTaskRepository {
   });
 
   @override
-  Future<Either<Failure, List<ToDoTask>>> getListToDoTasks() {
-    throw UnimplementedError();
+  Future<Either<Failure, List<ToDoTask>>> getListToDoTasks() async {
+    try {
+      final response = await toDoTaskLocalDataSource.getToDoTaskList();
+      return Right(response);
+    } on EmptyToDoException {
+      return Left(EmptyToDoFailure());
+    } catch (e) {
+      return Left(UnexpectedFailure());
+    }
   }
 
   @override
   Future<Either<Failure, ToDoTask>> createToDoTask(String name) async {
     try {
-      final response = await toDoTaskLocalDataSource.createToDo(name);
+      final response = await toDoTaskLocalDataSource.createToDoTask(name);
       return Right(response);
     } on UnexpectedException {
       return Left(UnexpectedFailure());
+    } on ExistedNameException {
+      return Left(ExistedNameFailure());
+    } on LocalException {
+      return Left(LocalFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, ToDoTask>> updateToDoTask(String id) async {
+    try {
+      final response = await toDoTaskLocalDataSource.updateToDoTask(id);
+      return Right(response);
+    } on UnexpectedException {
+      return Left(UnexpectedFailure());
+    } on LocalException {
+      return Left(LocalFailure());
     }
   }
 }

@@ -8,3 +8,5 @@ class UnexpectedException implements Exception {
 class ExistedNameException implements Exception {}
 
 class LocalException implements Exception {}
+
+class EmptyToDoException implements Exception {}
