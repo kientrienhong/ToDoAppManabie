@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:dartz/dartz.dart';
+import 'package:to_do_app_manabie/core/exception/exception.dart';
 
 import 'package:to_do_app_manabie/core/failure/failure.dart';
 import 'package:to_do_app_manabie/features/todo/data/datasources/to_do_task_local_data_source.dart';
@@ -19,7 +20,12 @@ class ToDoTaskRepositoryImpl extends ToDoTaskRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> createToDoTask(String name) {
-    throw UnimplementedError();
+  Future<Either<Failure, ToDoTask>> createToDoTask(String name) async {
+    try {
+      final response = await toDoTaskLocalDataSource.createToDo(name);
+      return Right(response);
+    } on UnexpectedException {
+      return Left(UnexpectedFailure());
+    }
   }
 }

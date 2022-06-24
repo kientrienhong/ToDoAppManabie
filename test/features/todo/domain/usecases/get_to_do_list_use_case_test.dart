@@ -11,40 +11,40 @@ import 'get_to_do_list_use_case_test.mocks.dart';
 
 @GenerateMocks([ToDoTaskRepository])
 void main() {
-  // late ToDoTaskRepository toDoRepository;
-  // late GetToDoListUseCase getToDoListUseCase;
+  late ToDoTaskRepository toDoRepository;
+  late GetToDoListUseCase getToDoListUseCase;
 
-  // setUp(() {
-  //   toDoRepository = MockToDoRepository();
-  //   getToDoListUseCase = GetToDoListUseCase(toDoRepository: toDoRepository);
-  // });
-  // group('getListToDo', () {
-  //   List<ToDoTask> list = const [
-  //     ToDoTask(id: '1', name: 'coding', isCheck: true),
-  //     ToDoTask(id: '2', name: 'doing homework', isCheck: false),
-  //     ToDoTask(id: '3', name: 'cleaning room', isCheck: false),
-  //   ];
+  setUp(() {
+    toDoRepository = MockToDoTaskRepository();
+    getToDoListUseCase = GetToDoListUseCase(toDoRepository: toDoRepository);
+  });
+  group('getListToDo', () {
+    List<ToDoTask> list = const [
+      ToDoTask(id: '1', name: 'coding', status: ToDoTaskStatus.done),
+      ToDoTask(id: '2', name: 'doing homework', status: ToDoTaskStatus.notYet),
+      ToDoTask(id: '3', name: 'cleaning room', status: ToDoTaskStatus.notYet),
+    ];
 
-  //   test('Should return ListToDo', () async {
-  //     when(toDoRepository.getListToDoTasks())
-  //         .thenAnswer((_) async => Right(list));
+    test('Should return ListToDo', () async {
+      when(toDoRepository.getListToDoTasks())
+          .thenAnswer((_) async => Right(list));
 
-  //     final response = await getToDoListUseCase();
+      final response = await getToDoListUseCase();
 
-  //     verify(toDoRepository.getListToDoTasks());
+      verify(toDoRepository.getListToDoTasks());
 
-  //     expect(response, equals(Right(list)));
-  //   });
+      expect(response, equals(Right(list)));
+    });
 
-  //   test('Should return EmptyToDoFailure', () async {
-  //     when(toDoRepository.getListToDoTasks())
-  //         .thenAnswer((_) async => Left(EmptyToDoFailure()));
+    test('Should return EmptyToDoFailure', () async {
+      when(toDoRepository.getListToDoTasks())
+          .thenAnswer((_) async => Left(EmptyToDoFailure()));
 
-  //     final response = await getToDoListUseCase();
+      final response = await getToDoListUseCase();
 
-  //     verify(toDoRepository.getListToDoTasks());
+      verify(toDoRepository.getListToDoTasks());
 
-  //     expect(response, equals(Left(EmptyToDoFailure())));
-  //   });
-  // });
+      expect(response, equals(Left(EmptyToDoFailure())));
+    });
+  });
 }
