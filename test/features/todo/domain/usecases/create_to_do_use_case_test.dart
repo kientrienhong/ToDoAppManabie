@@ -25,7 +25,7 @@ void main() {
       when(toDoRepository.createToDoTask(name))
           .thenAnswer((_) async => const Right(toDoTask));
 
-      final response = await useCase(name);
+      final response = await useCase(CreateToDoUseCaseParam(name: name));
 
       verify(toDoRepository.createToDoTask(name));
 
@@ -38,7 +38,7 @@ void main() {
       when(toDoRepository.createToDoTask(name))
           .thenAnswer((_) async => Left(UnexpectedFailure()));
 
-      final response = await useCase(name);
+      final response = await useCase(CreateToDoUseCaseParam(name: name));
 
       verify(toDoRepository.createToDoTask(name));
 

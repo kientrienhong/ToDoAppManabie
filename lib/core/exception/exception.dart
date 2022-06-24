@@ -4,3 +4,7 @@ class UnexpectedException implements Exception {
     required this.message,
   });
 }
+
+class ExistedNameException implements Exception {}
+
+class LocalException implements Exception {}

@@ -13,5 +13,5 @@ class ToDoTask extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, name, status];
 }

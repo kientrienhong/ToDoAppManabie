@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:to_do_app_manabie/core/failure/failure.dart';
+import 'package:to_do_app_manabie/core/usecase/usecase.dart';
 import 'package:to_do_app_manabie/features/todo/domain/entities/to_do_task.dart';
 import 'package:to_do_app_manabie/features/todo/domain/repositories/to_do_task_repository.dart';
 import 'package:to_do_app_manabie/features/todo/domain/usecases/get_to_do_task_list_use_case.dart';
@@ -29,7 +30,7 @@ void main() {
       when(toDoRepository.getListToDoTasks())
           .thenAnswer((_) async => Right(list));
 
-      final response = await getToDoListUseCase();
+      final response = await getToDoListUseCase(NoParams());
 
       verify(toDoRepository.getListToDoTasks());
 
@@ -40,7 +41,7 @@ void main() {
       when(toDoRepository.getListToDoTasks())
           .thenAnswer((_) async => Left(EmptyToDoFailure()));
 
-      final response = await getToDoListUseCase();
+      final response = await getToDoListUseCase(NoParams());
 
       verify(toDoRepository.getListToDoTasks());
 

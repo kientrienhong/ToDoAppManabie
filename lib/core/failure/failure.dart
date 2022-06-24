@@ -11,3 +11,9 @@ class UnexpectedFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
+
+class EmptyNameFailure extends Failure {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
