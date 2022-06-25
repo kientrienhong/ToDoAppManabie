@@ -21,7 +21,7 @@ void main() {
     const id = '1';
     const name = 'coding';
     const ToDoTask toDoTask =
-        ToDoTask(id: '1', name: name, status: ToDoTaskStatus.notYet);
+        ToDoTask(id: '1', name: name, status: ToDoTaskStatus.incomplete);
     test('Should return ToDoTask when update successfully', () async {
       when(toDoTaskRepository.updateToDoTask(id))
           .thenAnswer((_) async => const Right(toDoTask));

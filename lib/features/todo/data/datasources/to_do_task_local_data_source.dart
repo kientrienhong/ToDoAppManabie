@@ -35,11 +35,11 @@ class ToDoTaskLocalDataSourceSharedPreference
   }
 
   ToDoTaskStatus notToDoTaskStatus(ToDoTaskStatus toDoTaskStatus) {
-    if (toDoTaskStatus == ToDoTaskStatus.done) {
-      return ToDoTaskStatus.notYet;
+    if (toDoTaskStatus == ToDoTaskStatus.complete) {
+      return ToDoTaskStatus.incomplete;
     }
 
-    return ToDoTaskStatus.done;
+    return ToDoTaskStatus.complete;
   }
 
   @override
@@ -56,12 +56,15 @@ class ToDoTaskLocalDataSourceSharedPreference
         String id = listToDoTaskModel[listToDoTaskModel.length - 1].id;
         int newId = int.parse(id) + 1;
         model = ToDoTaskModel(
-            id: newId.toString(), name: name, status: ToDoTaskStatus.notYet);
+            id: newId.toString(),
+            name: name,
+            status: ToDoTaskStatus.incomplete);
         listToDoTaskModel.add(model);
         await _checkSetString(listToDoTaskModel);
       }
     } else {
-      model = ToDoTaskModel(id: '1', name: name, status: ToDoTaskStatus.notYet);
+      model =
+          ToDoTaskModel(id: '1', name: name, status: ToDoTaskStatus.incomplete);
       await _checkSetString([model]);
     }
 

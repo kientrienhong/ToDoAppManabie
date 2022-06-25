@@ -26,7 +26,7 @@ void main() {
     const name = 'coding';
 
     const ToDoTaskModel toDoTaskModel =
-        ToDoTaskModel(id: '1', name: name, status: ToDoTaskStatus.notYet);
+        ToDoTaskModel(id: '1', name: name, status: ToDoTaskStatus.incomplete);
     const ToDoTask toDoTask = toDoTaskModel;
     test('Should return ToDoModel when create successfully', () async {
       when(toDoTaskLocalDataSource.createToDoTask(name))
@@ -73,11 +73,11 @@ void main() {
 
   group('getToDoTaskList', () {
     const List<ToDoTaskModel> listModel = [
-      ToDoTaskModel(id: '1', name: 'coding', status: ToDoTaskStatus.done),
+      ToDoTaskModel(id: '1', name: 'coding', status: ToDoTaskStatus.complete),
       ToDoTaskModel(
-          id: '2', name: 'doing homework', status: ToDoTaskStatus.notYet),
+          id: '2', name: 'doing homework', status: ToDoTaskStatus.incomplete),
       ToDoTaskModel(
-          id: '3', name: 'cleaning house', status: ToDoTaskStatus.notYet),
+          id: '3', name: 'cleaning house', status: ToDoTaskStatus.incomplete),
     ];
     const List<ToDoTask> listEntity = listModel;
     test('Should return ToDoTaskList when calling success', () async {
@@ -101,8 +101,8 @@ void main() {
 
   group('updateToDoTask', () {
     const id = '1';
-    const ToDoTaskModel toDoTaskModel =
-        ToDoTaskModel(id: id, name: 'coding', status: ToDoTaskStatus.notYet);
+    const ToDoTaskModel toDoTaskModel = ToDoTaskModel(
+        id: id, name: 'coding', status: ToDoTaskStatus.incomplete);
     const ToDoTask toDoTask = toDoTaskModel;
     test('Should return ToDoModel when update successfully', () async {
       when(toDoTaskLocalDataSource.updateToDoTask(id))

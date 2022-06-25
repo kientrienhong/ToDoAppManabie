@@ -27,18 +27,34 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
       required this.createToDoUseCase,
       required this.updateStatusToDoUseCase,
       required this.validateInput})
-      : super(ToDoInitial()) {
+      : super(ToDoState.initial()) {
     on<ToDoEvent>((event, emit) async {
       if (event is GetToDoTaskListEvent) {
-        emit(GetToDoLoading());
+        emit(state.copyWith(status: ToDoStateStatus.loading));
         final response = await getToDoListUseCase(NoParams());
 
         response.fold(
-            (l) => emit(GetToDoError(message: _mapFailureToMessage(l))),
-            (r) => emit(ToDoLoaded(list: r)));
+            (l) => emit(state.copyWith(
+                errorMsg: _mapFailureToMessage(l),
+                status: ToDoStateStatus.failure)),
+            (r) =>
+                emit(state.copyWith(list: r, status: ToDoStateStatus.success)));
       } else if (event is CreateToDoTaskEvent) {
-        emit(CreateToDoLoading());
-        // final validateInput = validateInput.
+        emit(state.copyWith(status: ToDoStateStatus.loading));
+        final result = validateInput.validateName(event.name);
+        result.fold(
+            (l) => emit(state.copyWith(
+                errorMsg: emptyNameFailureMsg,
+                status: ToDoStateStatus.failure)), (r) async {
+          final response =
+              await createToDoUseCase(CreateToDoUseCaseParam(name: r));
+          response.fold(
+              (l) => emit(state.copyWith(
+                  errorMsg: _mapFailureToMessage(l),
+                  status: ToDoStateStatus.failure)),
+              (r) => emit(state.copyWith(
+                  status: ToDoStateStatus.success, list: [...state.list, r])));
+        });
       }
     });
   }

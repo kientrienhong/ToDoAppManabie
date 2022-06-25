@@ -21,9 +21,11 @@ void main() {
   });
   group('getListToDo', () {
     List<ToDoTask> list = const [
-      ToDoTask(id: '1', name: 'coding', status: ToDoTaskStatus.done),
-      ToDoTask(id: '2', name: 'doing homework', status: ToDoTaskStatus.notYet),
-      ToDoTask(id: '3', name: 'cleaning room', status: ToDoTaskStatus.notYet),
+      ToDoTask(id: '1', name: 'coding', status: ToDoTaskStatus.complete),
+      ToDoTask(
+          id: '2', name: 'doing homework', status: ToDoTaskStatus.incomplete),
+      ToDoTask(
+          id: '3', name: 'cleaning room', status: ToDoTaskStatus.incomplete),
     ];
 
     test('Should return ListToDo', () async {

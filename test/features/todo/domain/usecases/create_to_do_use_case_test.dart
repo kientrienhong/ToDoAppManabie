@@ -20,12 +20,12 @@ void main() {
   group('createToDo', () {
     const name = 'coding';
     const ToDoTask toDoTask =
-        ToDoTask(id: '1', name: name, status: ToDoTaskStatus.notYet);
+        ToDoTask(id: '1', name: name, status: ToDoTaskStatus.incomplete);
     test('Should return ToDoTask when create successfully', () async {
       when(toDoRepository.createToDoTask(name))
           .thenAnswer((_) async => const Right(toDoTask));
 
-      final response = await useCase(CreateToDoUseCaseParam(name: name));
+      final response = await useCase(const CreateToDoUseCaseParam(name: name));
 
       verify(toDoRepository.createToDoTask(name));
 

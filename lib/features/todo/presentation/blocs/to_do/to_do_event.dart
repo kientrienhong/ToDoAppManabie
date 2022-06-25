@@ -11,9 +11,7 @@ class GetToDoTaskListEvent extends ToDoEvent {}
 
 class CreateToDoTaskEvent extends ToDoEvent {
   final String name;
-  const CreateToDoTaskEvent({
-    required this.name,
-  });
+  const CreateToDoTaskEvent({required this.name});
 }
 
 class UpdateToDoTaskEvent extends ToDoEvent {

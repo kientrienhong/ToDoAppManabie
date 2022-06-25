@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app_manabie/theme/custom_theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app_manabie/features/todo/presentation/blocs/to_do/to_do_bloc.dart';
+import 'package:to_do_app_manabie/features/todo/presentation/blocs/page_change/bloc/page_change_bloc.dart';
 
-void main() {
+import 'package:to_do_app_manabie/features/todo/presentation/pages/main_page.dart';
+import 'package:to_do_app_manabie/theme/custom_theme.dart';
+import 'injection_container.dart' as di;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await di.init();
+
   runApp(const MyApp());
 }
 
@@ -14,7 +24,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: CustomTheme.theme,
-      home: Container(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => di.sl<ToDoBloc>()),
+          BlocProvider(create: (_) => di.sl<PageChangeBloc>()),
+        ],
+        child: const MainPage(),
+      ),
     );
   }
 }

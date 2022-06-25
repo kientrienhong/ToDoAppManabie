@@ -8,9 +8,9 @@ import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
   const ToDoTaskModel toDoModelDone =
-      ToDoTaskModel(id: '1', name: 'coding', status: ToDoTaskStatus.done);
+      ToDoTaskModel(id: '1', name: 'coding', status: ToDoTaskStatus.complete);
   const ToDoTaskModel toDoModelNotYet = ToDoTaskModel(
-      id: '2', name: 'doing homework', status: ToDoTaskStatus.notYet);
+      id: '2', name: 'doing homework', status: ToDoTaskStatus.incomplete);
   const ToDoTaskModel toDoModel = toDoModelDone;
   test('should be a subclass of ToDo', () {
     expect(toDoModel, isA<ToDoTask>());

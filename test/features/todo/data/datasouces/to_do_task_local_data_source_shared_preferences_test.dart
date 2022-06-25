@@ -38,8 +38,8 @@ void main() {
 
   group('createToDoTask', () {
     const validName = 'cleaning house';
-    const validToDoTask =
-        ToDoTaskModel(id: '3', name: validName, status: ToDoTaskStatus.notYet);
+    const validToDoTask = ToDoTaskModel(
+        id: '3', name: validName, status: ToDoTaskStatus.incomplete);
     const invalidName = 'coding';
 
     test('Should return ToDoModel when creating success', () async {
@@ -94,14 +94,14 @@ void main() {
 
   group('updateToDoTask', () {
     const id = '1';
-    const validToDoTask =
-        ToDoTaskModel(id: id, name: 'coding', status: ToDoTaskStatus.notYet);
+    const validToDoTask = ToDoTaskModel(
+        id: id, name: 'coding', status: ToDoTaskStatus.incomplete);
     ToDoTaskStatus notToDoTaskStatus(ToDoTaskStatus toDoTaskStatus) {
-      if (toDoTaskStatus == ToDoTaskStatus.done) {
-        return ToDoTaskStatus.notYet;
+      if (toDoTaskStatus == ToDoTaskStatus.complete) {
+        return ToDoTaskStatus.incomplete;
       }
 
-      return ToDoTaskStatus.done;
+      return ToDoTaskStatus.complete;
     }
 
     test('Should return new Model when updating success', () async {

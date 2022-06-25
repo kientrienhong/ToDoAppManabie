@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-enum ToDoTaskStatus { notYet, done }
+enum ToDoTaskStatus { incomplete, complete }
 
 class ToDoTask extends Equatable {
   final String id;

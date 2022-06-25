@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:to_do_app_manabie/core/failure/failure.dart';
 import 'package:to_do_app_manabie/core/utils/validate_input.dart';
 
 void main() {
@@ -16,6 +17,14 @@ void main() {
       final response = validateInput.validateName(validString);
 
       expect(response, equals(const Right(validString)));
+    });
+
+    test('Should return EmptyNameFailure', () {
+      const validString = '';
+
+      final response = validateInput.validateName(validString);
+
+      expect(response, equals(Left(EmptyNameFailure())));
     });
   });
 }
