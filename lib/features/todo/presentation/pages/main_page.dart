@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_app_manabie/features/todo/presentation/blocs/page_change/bloc/page_change_bloc.dart';
+import 'package:to_do_app_manabie/features/todo/presentation/blocs/page_change/page_change_bloc.dart';
 import 'package:to_do_app_manabie/features/todo/presentation/pages/all_to_do_page.dart';
 import 'package:to_do_app_manabie/features/todo/presentation/pages/complete_to_do_page.dart';
 import 'package:to_do_app_manabie/features/todo/presentation/pages/incomplete_to_do_page.dart';

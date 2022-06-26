@@ -8,7 +8,7 @@ import 'package:to_do_app_manabie/features/todo/domain/usecases/create_to_do_tas
 import 'package:to_do_app_manabie/features/todo/domain/usecases/get_to_do_task_list_use_case.dart';
 import 'package:to_do_app_manabie/features/todo/domain/usecases/update_status_to_do_use_case.dart';
 import 'package:to_do_app_manabie/features/todo/presentation/blocs/create_to_do/create_to_do_bloc.dart';
-import 'package:to_do_app_manabie/features/todo/presentation/blocs/page_change/bloc/page_change_bloc.dart';
+import 'package:to_do_app_manabie/features/todo/presentation/blocs/page_change/page_change_bloc.dart';
 import 'package:to_do_app_manabie/features/todo/presentation/blocs/to_do/to_do_bloc.dart';
 
 final sl = GetIt.instance;
