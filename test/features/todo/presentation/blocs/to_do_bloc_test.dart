@@ -85,81 +85,81 @@ void main() {
     const toDo =
         ToDoTask(id: '3', name: name, status: ToDoTaskStatus.incomplete);
     const existedName = 'coding';
-    blocTest('Should emit CreateToDoLoaded',
-        build: () => toDoBloc,
-        act: (ToDoBloc bloc) {
-          when(validateInput.validateName(name))
-              .thenAnswer((_) => const Right(name));
-          when(createToDoUseCase(const CreateToDoUseCaseParam(name: name)))
-              .thenAnswer((_) async => const Right(toDo));
-          bloc.add(const CreateToDoTaskEvent(name: name));
-        },
-        expect: () => [
-              stateLoading,
-              state.copyWith(status: ToDoStateStatus.success, list: [toDo])
-            ]);
+    // blocTest('Should emit CreateToDoLoaded',
+    //     build: () => toDoBloc,
+    //     act: (ToDoBloc bloc) {
+    //       when(validateInput.validateName(name))
+    //           .thenAnswer((_) => const Right(name));
+    //       when(createToDoUseCase(const CreateToDoUseCaseParam(name: name)))
+    //           .thenAnswer((_) async => const Right(toDo));
+    //       bloc.add(const CreateToDoTaskEvent(name: name));
+    //     },
+    //     expect: () => [
+    //           stateLoading,
+    //           state.copyWith(status: ToDoStateStatus.success, list: [toDo])
+    //         ]);
 
-    blocTest('Should emit EmptyNameMsg into CreateToDoError',
-        build: () => toDoBloc,
-        act: (ToDoBloc bloc) {
-          when(validateInput.validateName(''))
-              .thenAnswer((_) => Left(EmptyNameFailure()));
+    // blocTest('Should emit EmptyNameMsg into CreateToDoError',
+    //     build: () => toDoBloc,
+    //     act: (ToDoBloc bloc) {
+    //       when(validateInput.validateName(''))
+    //           .thenAnswer((_) => Left(EmptyNameFailure()));
 
-          bloc.add(const CreateToDoTaskEvent(name: ''));
-        },
-        expect: () => [
-              stateLoading,
-              state.copyWith(
-                  errorMsg: emptyNameFailureMsg,
-                  status: ToDoStateStatus.failure)
-            ]);
+    //       bloc.add(const CreateToDoTaskEvent(name: ''));
+    //     },
+    //     expect: () => [
+    //           stateLoading,
+    //           state.copyWith(
+    //               errorMsg: emptyNameFailureMsg,
+    //               status: ToDoStateStatus.failure)
+    //         ]);
 
-    blocTest('Should emit ExistedNameMsg into CreateToDoError',
-        build: () => toDoBloc,
-        act: (ToDoBloc bloc) {
-          when(validateInput.validateName(existedName))
-              .thenAnswer((_) => const Right(existedName));
-          when(createToDoUseCase(
-                  const CreateToDoUseCaseParam(name: existedName)))
-              .thenAnswer((_) async => Left(ExistedNameFailure()));
-          bloc.add(const CreateToDoTaskEvent(name: existedName));
-        },
-        expect: () => [
-              stateLoading,
-              state.copyWith(
-                  errorMsg: existedNameFailureMsg,
-                  status: ToDoStateStatus.failure)
-            ]);
-    blocTest('Should emit LocalFailureMsg into CreateToDoError',
-        build: () => toDoBloc,
-        act: (ToDoBloc bloc) {
-          when(validateInput.validateName(name))
-              .thenAnswer((_) => const Right(name));
-          when(createToDoUseCase(const CreateToDoUseCaseParam(name: name)))
-              .thenAnswer((_) async => Left(LocalFailure()));
-          bloc.add(const CreateToDoTaskEvent(name: name));
-        },
-        expect: () => [
-              stateLoading,
-              state.copyWith(
-                  errorMsg: localDataSourceFailureMsg,
-                  status: ToDoStateStatus.failure)
-            ]);
-    blocTest('Should emit UnExpectedMsg into CreateToDoError',
-        build: () => toDoBloc,
-        act: (ToDoBloc bloc) {
-          when(validateInput.validateName(name))
-              .thenAnswer((_) => const Right(name));
-          when(createToDoUseCase(const CreateToDoUseCaseParam(name: name)))
-              .thenAnswer((_) async => Left(UnexpectedFailure()));
-          bloc.add(const CreateToDoTaskEvent(name: name));
-        },
-        expect: () => [
-              stateLoading,
-              state.copyWith(
-                  errorMsg: unExpectedFailureMsg,
-                  status: ToDoStateStatus.failure)
-            ]);
+    // blocTest('Should emit ExistedNameMsg into CreateToDoError',
+    //     build: () => toDoBloc,
+    //     act: (ToDoBloc bloc) {
+    //       when(validateInput.validateName(existedName))
+    //           .thenAnswer((_) => const Right(existedName));
+    //       when(createToDoUseCase(
+    //               const CreateToDoUseCaseParam(name: existedName)))
+    //           .thenAnswer((_) async => Left(ExistedNameFailure()));
+    //       bloc.add(const CreateToDoTaskEvent(name: existedName));
+    //     },
+    //     expect: () => [
+    //           stateLoading,
+    //           state.copyWith(
+    //               errorMsg: existedNameFailureMsg,
+    //               status: ToDoStateStatus.failure)
+    //         ]);
+    // blocTest('Should emit LocalFailureMsg into CreateToDoError',
+    //     build: () => toDoBloc,
+    //     act: (ToDoBloc bloc) {
+    //       when(validateInput.validateName(name))
+    //           .thenAnswer((_) => const Right(name));
+    //       when(createToDoUseCase(const CreateToDoUseCaseParam(name: name)))
+    //           .thenAnswer((_) async => Left(LocalFailure()));
+    //       bloc.add(const CreateToDoTaskEvent(name: name));
+    //     },
+    //     expect: () => [
+    //           stateLoading,
+    //           state.copyWith(
+    //               errorMsg: localDataSourceFailureMsg,
+    //               status: ToDoStateStatus.failure)
+    //         ]);
+    // blocTest('Should emit UnExpectedMsg into CreateToDoError',
+    //     build: () => toDoBloc,
+    //     act: (ToDoBloc bloc) {
+    //       when(validateInput.validateName(name))
+    //           .thenAnswer((_) => const Right(name));
+    //       when(createToDoUseCase(const CreateToDoUseCaseParam(name: name)))
+    //           .thenAnswer((_) async => Left(UnexpectedFailure()));
+    //       bloc.add(const CreateToDoTaskEvent(name: name));
+    //     },
+    //     expect: () => [
+    //           stateLoading,
+    //           state.copyWith(
+    //               errorMsg: unExpectedFailureMsg,
+    //               status: ToDoStateStatus.failure)
+    //         ]);
   });
 
   group('updateToDoTask', () {

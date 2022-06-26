@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:to_do_app_manabie/features/todo/presentation/widgets/heading_widget.dart';
+import '../widgets/widgets.dart';
 
 class CompleteToDoPage extends StatefulWidget {
   const CompleteToDoPage({super.key});
@@ -17,11 +16,12 @@ class _CompleteToDoPageState extends State<CompleteToDoPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
-            children: [
+            children: const [
               HeadingWidget(
                 title: 'To Do List',
                 subtitle: 'Complete',
-              )
+              ),
+              ToDoList(currentPage: 1),
             ],
           ),
         ),

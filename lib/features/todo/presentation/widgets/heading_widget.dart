@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app_manabie/features/todo/presentation/blocs/create_to_do/create_to_do_bloc.dart';
 import 'package:to_do_app_manabie/features/todo/presentation/blocs/to_do/to_do_bloc.dart';
 
 class HeadingWidget extends StatelessWidget {
@@ -51,31 +52,20 @@ class HeadingWidget extends StatelessWidget {
         const SizedBox(
           height: 4,
         ),
-        Row(
-          children: [
-            Container(
-              width: (deviceSize.width - 48) / 3,
-              height: 2,
-              color: Theme.of(context).secondaryHeaderColor,
-            ),
-            Container(
-              width: (deviceSize.width - 48) * 2 / 3,
-              height: 2,
-              color: const Color(0xFF909CA1),
-            )
-          ],
-        )
       ],
     );
   }
 
   void onPressAdd(BuildContext context, Size deviceSize) {
     TextEditingController nameController = TextEditingController();
-
     showDialog(
         context: context,
-        builder: (context) => BlocProvider(
-              create: (context) => BlocProvider.of<ToDoBloc>(context),
+        builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(
+                    value: BlocProvider.of<CreateToDoBloc>(context)),
+                BlocProvider.value(value: BlocProvider.of<ToDoBloc>(context)),
+              ],
               child: AlertDialog(
                   content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -87,26 +77,53 @@ class HeadingWidget extends StatelessWidget {
                   TextFormField(
                     controller: nameController,
                   ),
-                  BlocListener<ToDoBloc, ToDoState>(
+                  BlocListener<CreateToDoBloc, CreateToDoState>(
                     listener: (context, state) {
-                      if (state.status == ToDoStateStatus.success) {
+                      if (state is CreateToDoLoaded) {
                         Navigator.pop(context);
+                        BlocProvider.of<ToDoBloc>(context)
+                            .add(AddToDoTask(toDoTask: state.task));
                       }
                     },
-                    child: BlocBuilder<ToDoBloc, ToDoState>(
+                    child: BlocBuilder<CreateToDoBloc, CreateToDoState>(
                       builder: (context, state) {
-                        final child = Text(
+                        Widget child = Text(
                           'Submit',
                           style: Theme.of(context).textTheme.button,
                         );
 
-                        return buildButton(
-                            child: child,
-                            deviceSize: deviceSize,
-                            context: context,
-                            function: () {
-                              addNewToDo(context, nameController.text);
-                            });
+                        Widget error = Container();
+
+                        if (state is CreateToDoError) {
+                          error = Text(
+                            state.error,
+                            style: TextStyle(
+                                color: Theme.of(context).errorColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          );
+                        } else if (state is CreateToDoLoading) {
+                          child = const CircularProgressIndicator();
+                        }
+
+                        return Column(
+                          children: [
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            error,
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            buildButton(
+                                child: child,
+                                deviceSize: deviceSize,
+                                context: context,
+                                function: () {
+                                  addNewToDo(context, nameController.text);
+                                }),
+                          ],
+                        );
                       },
                     ),
                   ),
@@ -116,8 +133,8 @@ class HeadingWidget extends StatelessWidget {
   }
 
   void addNewToDo(BuildContext context, String name) {
-    final bloc = BlocProvider.of<ToDoBloc>(context);
-    bloc.add(CreateToDoTaskEvent(name: name));
+    final bloc = BlocProvider.of<CreateToDoBloc>(context, listen: false);
+    bloc.add(CreateToDoEvent(name));
   }
 
   Widget buildButton(

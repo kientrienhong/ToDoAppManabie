@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:to_do_app_manabie/features/todo/presentation/widgets/heading_widget.dart';
+import '../widgets/widgets.dart';
 
 class IncompleteToDoPage extends StatefulWidget {
   const IncompleteToDoPage({super.key});
@@ -17,10 +16,13 @@ class _IncompleteToDoPageState extends State<IncompleteToDoPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
-            children: [
+            children: const [
               HeadingWidget(
                 title: 'To Do List',
                 subtitle: 'Incomplete',
+              ),
+              ToDoList(
+                currentPage: 2,
               )
             ],
           ),

@@ -25,7 +25,7 @@ class ToDoTaskModel extends ToDoTask {
   }
 
   static String fromListToJson(List<ToDoTaskModel> toDoModelList) =>
-      jsonEncode(toDoModelList.map((e) => e.toString()).toList());
+      jsonEncode(toDoModelList.map((e) => e.toMap()).toList());
 
   static List<ToDoTaskModel> fromJsonToList(List<dynamic> listMap) =>
       listMap.map((e) => ToDoTaskModel.fromJson(e)).toList();

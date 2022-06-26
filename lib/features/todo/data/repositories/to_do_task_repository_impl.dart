@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:dartz/dartz.dart';
 import 'package:to_do_app_manabie/core/exception/exception.dart';
 
@@ -37,6 +35,8 @@ class ToDoTaskRepositoryImpl extends ToDoTaskRepository {
       return Left(ExistedNameFailure());
     } on LocalException {
       return Left(LocalFailure());
+    } catch (e) {
+      return Left(UnexpectedFailure());
     }
   }
 

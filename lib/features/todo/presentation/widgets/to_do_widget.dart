@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app_manabie/features/todo/domain/entities/to_do_task.dart';
+import 'package:to_do_app_manabie/features/todo/presentation/blocs/to_do/to_do_bloc.dart';
 
 class ToDoWidget extends StatelessWidget {
   final ToDoTask toDo;
@@ -7,20 +9,22 @@ class ToDoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            Checkbox(
-                value: toDo.status == ToDoTaskStatus.complete,
-                onChanged: (val) => {}),
-            Text(
-              toDo.name,
-              style: Theme.of(context).textTheme.headline2,
-            )
-          ],
+        Text(
+          toDo.name,
+          style: Theme.of(context).textTheme.headline2,
         ),
+        Checkbox(
+            value: toDo.status == ToDoTaskStatus.complete,
+            onChanged: (val) => {updateStatusToDo(context, toDo.id)}),
       ],
     );
+  }
+
+  void updateStatusToDo(BuildContext context, String id) {
+    BlocProvider.of<ToDoBloc>(context, listen: false)
+        .add(UpdateToDoTaskEvent(id: id));
   }
 }

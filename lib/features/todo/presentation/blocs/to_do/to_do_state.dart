@@ -1,6 +1,13 @@
 part of 'to_do_bloc.dart';
 
-enum ToDoStateStatus { initial, loading, success, failure }
+enum ToDoStateStatus {
+  initial,
+  loading,
+  createLoading,
+  success,
+  createSuccess,
+  failure
+}
 
 class ToDoState extends Equatable {
   final List<ToDoTask> list;
@@ -14,11 +21,11 @@ class ToDoState extends Equatable {
         list: [], status: ToDoStateStatus.initial, errorMsg: '');
   }
 
-  ToDoState copyWith(
-      {List<ToDoTask>? list,
-      ToDoStateStatus? status,
-      String? errorMsg,
-      int? currentPage}) {
+  ToDoState copyWith({
+    List<ToDoTask>? list,
+    ToDoStateStatus? status,
+    String? errorMsg,
+  }) {
     return ToDoState(
         list: list ?? this.list,
         status: status ?? this.status,

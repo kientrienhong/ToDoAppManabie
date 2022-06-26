@@ -7,6 +7,7 @@ import 'package:to_do_app_manabie/features/todo/domain/repositories/to_do_task_r
 import 'package:to_do_app_manabie/features/todo/domain/usecases/create_to_do_task_use_case.dart';
 import 'package:to_do_app_manabie/features/todo/domain/usecases/get_to_do_task_list_use_case.dart';
 import 'package:to_do_app_manabie/features/todo/domain/usecases/update_status_to_do_use_case.dart';
+import 'package:to_do_app_manabie/features/todo/presentation/blocs/create_to_do/create_to_do_bloc.dart';
 import 'package:to_do_app_manabie/features/todo/presentation/blocs/page_change/bloc/page_change_bloc.dart';
 import 'package:to_do_app_manabie/features/todo/presentation/blocs/to_do/to_do_bloc.dart';
 
@@ -20,6 +21,7 @@ Future<void> init() async {
       updateStatusToDoUseCase: sl(),
       validateInput: sl()));
   sl.registerFactory(() => PageChangeBloc());
+  sl.registerFactory(() => CreateToDoBloc(createToDoUseCase: sl()));
   // use cases
   sl.registerLazySingleton(() => GetToDoListUseCase(toDoRepository: sl()));
   sl.registerLazySingleton(() => CreateToDoUseCase(toDoRepository: sl()));

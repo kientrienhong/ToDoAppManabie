@@ -9,9 +9,9 @@ abstract class ToDoEvent extends Equatable {
 
 class GetToDoTaskListEvent extends ToDoEvent {}
 
-class CreateToDoTaskEvent extends ToDoEvent {
-  final String name;
-  const CreateToDoTaskEvent({required this.name});
+class AddToDoTask extends ToDoEvent {
+  final ToDoTask toDoTask;
+  const AddToDoTask({required this.toDoTask});
 }
 
 class UpdateToDoTaskEvent extends ToDoEvent {

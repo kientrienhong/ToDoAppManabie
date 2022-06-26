@@ -32,31 +32,49 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
       if (event is GetToDoTaskListEvent) {
         emit(state.copyWith(status: ToDoStateStatus.loading));
         final response = await getToDoListUseCase(NoParams());
-
         response.fold(
             (l) => emit(state.copyWith(
                 errorMsg: _mapFailureToMessage(l),
                 status: ToDoStateStatus.failure)),
             (r) =>
                 emit(state.copyWith(list: r, status: ToDoStateStatus.success)));
-      } else if (event is CreateToDoTaskEvent) {
+      } else if (event is UpdateToDoTaskEvent) {
         emit(state.copyWith(status: ToDoStateStatus.loading));
-        final result = validateInput.validateName(event.name);
-        result.fold(
-            (l) => emit(state.copyWith(
-                errorMsg: emptyNameFailureMsg,
-                status: ToDoStateStatus.failure)), (r) async {
-          final response =
-              await createToDoUseCase(CreateToDoUseCaseParam(name: r));
-          response.fold(
-              (l) => emit(state.copyWith(
-                  errorMsg: _mapFailureToMessage(l),
-                  status: ToDoStateStatus.failure)),
-              (r) => emit(state.copyWith(
-                  status: ToDoStateStatus.success, list: [...state.list, r])));
-        });
+        final response =
+            await updateStatusToDoUseCase(UpdateStatusToDoParams(id: event.id));
+        emit(response.fold(
+            (l) => state.copyWith(
+                status: ToDoStateStatus.failure,
+                errorMsg: _mapFailureToMessage(l)), (r) {
+          final listTemp = [...state.list];
+          final indexFound =
+              listTemp.indexWhere((element) => element.id == event.id);
+          final toDoFound = listTemp[indexFound];
+
+          listTemp[indexFound] = ToDoTask(
+              id: event.id,
+              name: toDoFound.name,
+              status: notToDoTaskStatus(toDoFound.status));
+          return state.copyWith(
+            list: listTemp,
+            status: ToDoStateStatus.success,
+          );
+        }));
+      } else if (event is AddToDoTask) {
+        emit(state.copyWith(
+          list: [...state.list, event.toDoTask],
+          status: ToDoStateStatus.success,
+        ));
       }
     });
+  }
+
+  ToDoTaskStatus notToDoTaskStatus(ToDoTaskStatus toDoTaskStatus) {
+    if (toDoTaskStatus == ToDoTaskStatus.complete) {
+      return ToDoTaskStatus.incomplete;
+    }
+
+    return ToDoTaskStatus.complete;
   }
 
   String _mapFailureToMessage(Failure failure) {
