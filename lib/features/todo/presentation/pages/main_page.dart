@@ -29,27 +29,28 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
           onTap: onTapChangeScreen,
+          selectedItemColor: Theme.of(context).secondaryHeaderColor,
           currentIndex: BlocProvider.of<PageChangeBloc>(context, listen: true)
               .state
               .index,
-          items: const [
+          items: [
             BottomNavigationBarItem(
                 label: 'All',
                 icon: ImageIcon(
-                  AssetImage("assets/imgs/all.png"),
-                  color: Color(0xFF3A5A98),
+                  const AssetImage("assets/imgs/all.png"),
+                  color: Theme.of(context).secondaryHeaderColor,
                 )),
             BottomNavigationBarItem(
                 label: 'Complete',
                 icon: ImageIcon(
-                  AssetImage("assets/imgs/complete.png"),
-                  color: Color(0xFF3A5A98),
+                  const AssetImage("assets/imgs/complete.png"),
+                  color: Theme.of(context).secondaryHeaderColor,
                 )),
             BottomNavigationBarItem(
                 label: 'Incomplete',
                 icon: ImageIcon(
-                  AssetImage("assets/imgs/incomplete.png"),
-                  color: Color(0xFF3A5A98),
+                  const AssetImage("assets/imgs/incomplete.png"),
+                  color: Theme.of(context).secondaryHeaderColor,
                 ))
           ]),
     );

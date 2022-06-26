@@ -21,12 +21,17 @@ class CreateToDoBloc extends Bloc<CreateToDoEvent, CreateToDoState> {
     on<CreateToDoEvent>((event, emit) async {
       emit(CreateToDoLoading());
 
-      final response =
-          await createToDoUseCase(CreateToDoUseCaseParam(name: event.name));
+      final isValidInput = validateInput.validateName(event.name);
+      await isValidInput.fold(
+          (l) async => emit(CreateToDoError(error: _mapFailureToMessage(l))),
+          (r) async {
+        final response =
+            await createToDoUseCase(CreateToDoUseCaseParam(name: r));
 
-      response.fold(
-          (l) => emit(CreateToDoError(error: _mapFailureToMessage(l))),
-          (r) => emit(CreateToDoLoaded(task: r)));
+        response.fold(
+            (left) => emit(CreateToDoError(error: _mapFailureToMessage(left))),
+            (right) => emit(CreateToDoLoaded(task: right)));
+      });
     });
   }
 

@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:to_do_app_manabie/features/todo/presentation/blocs/page_change/page_change_bloc.dart';
 
 void main() {
-  late final PageChangeBloc bloc;
+  late PageChangeBloc bloc;
 
   setUp(() {
     bloc = PageChangeBloc();

@@ -17,6 +17,7 @@ class ToDoWidget extends StatelessWidget {
           style: Theme.of(context).textTheme.headline2,
         ),
         Checkbox(
+            activeColor: Theme.of(context).secondaryHeaderColor,
             value: toDo.status == ToDoTaskStatus.complete,
             onChanged: (val) => {updateStatusToDo(context, toDo.id)}),
       ],
