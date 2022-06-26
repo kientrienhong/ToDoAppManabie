@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:to_do_app_manabie/core/failure/failure.dart';
-import 'package:to_do_app_manabie/features/todo/data/models/to_do_task_model.dart';
+import 'package:to_do_app_manabie/core/utils/validate_input.dart';
 import 'package:to_do_app_manabie/features/todo/domain/entities/to_do_task.dart';
 import 'package:to_do_app_manabie/features/todo/domain/usecases/create_to_do_task_use_case.dart';
 
@@ -15,8 +15,8 @@ const emptyNameFailureMsg = 'Please provide name';
 
 class CreateToDoBloc extends Bloc<CreateToDoEvent, CreateToDoState> {
   final CreateToDoUseCase createToDoUseCase;
-
-  CreateToDoBloc({required this.createToDoUseCase})
+  final ValidateInput validateInput;
+  CreateToDoBloc({required this.createToDoUseCase, required this.validateInput})
       : super(CreateToDoInitial()) {
     on<CreateToDoEvent>((event, emit) async {
       emit(CreateToDoLoading());

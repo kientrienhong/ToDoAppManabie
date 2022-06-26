@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:to_do_app_manabie/core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:to_do_app_manabie/core/usecase/usecase.dart';
@@ -16,9 +17,12 @@ class UpdateStatusToDoUseCase
   }
 }
 
-class UpdateStatusToDoParams {
+class UpdateStatusToDoParams extends Equatable {
   final String id;
-  UpdateStatusToDoParams({
+  const UpdateStatusToDoParams({
     required this.id,
   });
+
+  @override
+  List<Object?> get props => [id];
 }

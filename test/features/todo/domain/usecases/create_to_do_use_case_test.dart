@@ -50,7 +50,7 @@ void main() {
       when(toDoRepository.createToDoTask(name))
           .thenAnswer((_) async => Left(LocalFailure()));
 
-      final response = await useCase(CreateToDoUseCaseParam(name: name));
+      final response = await useCase(const CreateToDoUseCaseParam(name: name));
 
       verify(toDoRepository.createToDoTask(name));
 
@@ -63,7 +63,7 @@ void main() {
       when(toDoRepository.createToDoTask(name))
           .thenAnswer((_) async => Left(ExistedNameFailure()));
 
-      final response = await useCase(CreateToDoUseCaseParam(name: name));
+      final response = await useCase(const CreateToDoUseCaseParam(name: name));
 
       verify(toDoRepository.createToDoTask(name));
 

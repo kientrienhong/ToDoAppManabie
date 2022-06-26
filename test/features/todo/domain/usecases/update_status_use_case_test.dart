@@ -26,7 +26,7 @@ void main() {
       when(toDoTaskRepository.updateToDoTask(id))
           .thenAnswer((_) async => const Right(toDoTask));
 
-      final response = await useCase(UpdateStatusToDoParams(id: id));
+      final response = await useCase(const UpdateStatusToDoParams(id: id));
 
       verify(toDoTaskRepository.updateToDoTask(id));
 
@@ -39,7 +39,7 @@ void main() {
       when(toDoTaskRepository.updateToDoTask(id))
           .thenAnswer((_) async => Left(UnexpectedFailure()));
 
-      final response = await useCase(UpdateStatusToDoParams(id: id));
+      final response = await useCase(const UpdateStatusToDoParams(id: id));
 
       verify(toDoTaskRepository.updateToDoTask(id));
 

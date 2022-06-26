@@ -16,12 +16,12 @@ final sl = GetIt.instance;
 Future<void> init() async {
   // Bloc
   sl.registerFactory(() => ToDoBloc(
-      getToDoListUseCase: sl(),
-      createToDoUseCase: sl(),
-      updateStatusToDoUseCase: sl(),
-      validateInput: sl()));
+        getToDoListUseCase: sl(),
+        updateStatusToDoUseCase: sl(),
+      ));
   sl.registerFactory(() => PageChangeBloc());
-  sl.registerFactory(() => CreateToDoBloc(createToDoUseCase: sl()));
+  sl.registerFactory(
+      () => CreateToDoBloc(createToDoUseCase: sl(), validateInput: sl()));
   // use cases
   sl.registerLazySingleton(() => GetToDoListUseCase(toDoRepository: sl()));
   sl.registerLazySingleton(() => CreateToDoUseCase(toDoRepository: sl()));
@@ -32,7 +32,7 @@ Future<void> init() async {
   sl.registerLazySingleton<ToDoTaskRepository>(
       () => ToDoTaskRepositoryImpl(toDoTaskLocalDataSource: sl()));
 
-// Data sources
+  // Data sources
   sl.registerLazySingleton<ToDoTaskLocalDataSource>(
     () => ToDoTaskLocalDataSourceSharedPreference(sharedPreferences: sl()),
   );

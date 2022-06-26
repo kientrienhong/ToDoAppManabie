@@ -8,13 +8,10 @@ import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:to_do_app_manabie/core/failure/failure.dart' as _i6;
 import 'package:to_do_app_manabie/core/usecase/usecase.dart' as _i8;
-import 'package:to_do_app_manabie/core/utils/validate_input.dart' as _i11;
 import 'package:to_do_app_manabie/features/todo/domain/entities/to_do_task.dart'
     as _i7;
 import 'package:to_do_app_manabie/features/todo/domain/repositories/to_do_task_repository.dart'
     as _i2;
-import 'package:to_do_app_manabie/features/todo/domain/usecases/create_to_do_task_use_case.dart'
-    as _i10;
 import 'package:to_do_app_manabie/features/todo/domain/usecases/get_to_do_task_list_use_case.dart'
     as _i4;
 import 'package:to_do_app_manabie/features/todo/domain/usecases/update_status_to_do_use_case.dart'
@@ -78,40 +75,4 @@ class MockUpdateStatusToDoUseCase extends _i1.Mock
               returnValue: Future<_i3.Either<_i6.Failure, _i7.ToDoTask>>.value(
                   _FakeEither_1<_i6.Failure, _i7.ToDoTask>()))
           as _i5.Future<_i3.Either<_i6.Failure, _i7.ToDoTask>>);
-}
-
-/// A class which mocks [CreateToDoUseCase].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockCreateToDoUseCase extends _i1.Mock implements _i10.CreateToDoUseCase {
-  MockCreateToDoUseCase() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i2.ToDoTaskRepository get toDoRepository =>
-      (super.noSuchMethod(Invocation.getter(#toDoRepository),
-          returnValue: _FakeToDoTaskRepository_0()) as _i2.ToDoTaskRepository);
-  @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.ToDoTask>> call(
-          _i10.CreateToDoUseCaseParam? params) =>
-      (super.noSuchMethod(Invocation.method(#call, [params]),
-              returnValue: Future<_i3.Either<_i6.Failure, _i7.ToDoTask>>.value(
-                  _FakeEither_1<_i6.Failure, _i7.ToDoTask>()))
-          as _i5.Future<_i3.Either<_i6.Failure, _i7.ToDoTask>>);
-}
-
-/// A class which mocks [ValidateInput].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockValidateInput extends _i1.Mock implements _i11.ValidateInput {
-  MockValidateInput() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.Either<_i6.Failure, String> validateName(String? name) =>
-      (super.noSuchMethod(Invocation.method(#validateName, [name]),
-              returnValue: _FakeEither_1<_i6.Failure, String>())
-          as _i3.Either<_i6.Failure, String>);
 }
