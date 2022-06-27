@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app_manabie/features/todo/presentation/blocs/create_to_do/create_to_do_bloc.dart';
@@ -21,9 +23,6 @@ class HeadingWidget extends StatelessWidget {
         Text(
           subtitle,
           style: Theme.of(context).textTheme.headline2,
-        ),
-        const SizedBox(
-          height: 4,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,12 +69,36 @@ class HeadingWidget extends StatelessWidget {
                   content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    'Create to do',
-                    style: Theme.of(context).textTheme.headline1,
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const SizedBox(
+                          height: 24,
+                          width: 24,
+                        ),
+                        Text(
+                          'Create to do',
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: SizedBox(
+                              height: 24,
+                              width: 24,
+                              child: Image.asset(
+                                'assets/imgs/close.png',
+                                fit: BoxFit.cover,
+                              )),
+                        )
+                      ]),
+                  const SizedBox(
+                    height: 16,
                   ),
                   TextFormField(
                     controller: nameController,
+                  ),
+                  const SizedBox(
+                    height: 16,
                   ),
                   BlocListener<CreateToDoBloc, CreateToDoState>(
                     listener: (context, state) {

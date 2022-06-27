@@ -12,9 +12,12 @@ class ToDoWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          toDo.name,
-          style: Theme.of(context).textTheme.headline2,
+        Flexible(
+          child: Text(
+            maxLines: null,
+            toDo.name,
+            style: Theme.of(context).textTheme.headline2,
+          ),
         ),
         Checkbox(
             activeColor: Theme.of(context).secondaryHeaderColor,

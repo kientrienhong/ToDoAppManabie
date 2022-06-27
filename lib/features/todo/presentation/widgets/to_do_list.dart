@@ -70,10 +70,13 @@ class _ToDoListState extends State<ToDoList> {
         if (state.status == ToDoStateStatus.loading) {
           line = const LinearProgressIndicator();
         } else if (state.status == ToDoStateStatus.failure) {
-          content = Center(
-            child: Text(
-              state.errorMsg,
-              style: Theme.of(context).textTheme.headline2,
+          content = Container(
+            margin: const EdgeInsets.only(top: 8),
+            child: Center(
+              child: Text(
+                state.errorMsg,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
             ),
           );
         }

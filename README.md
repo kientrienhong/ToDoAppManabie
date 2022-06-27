@@ -1,16 +1,41 @@
-# to_do_app_manabie
+# TO DO APP
 
-A new Flutter project.
+In this project, I applying TDD Clean Architecture
 
-## Getting Started
+## How to run
 
-This project is a starting point for a Flutter application.
+**Step 1:**
 
-A few resources to get you started if this is your first Flutter project:
+Download or clone this repo by using the link below:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```
+https://github.com/kientrienhong/ToDoAppManabie.git
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Step 2:**
+
+Go to project root and execute the following command in console to get the required dependencies:
+
+```
+flutter pub get
+```
+
+**Step 3:**
+
+Turn on the emulator you want to run project on
+
+**Step 4:**
+
+You can use Command Prompt, locate to the root of the project and execute the following command:
+
+```
+flutter run
+```
+
+## How to test
+
+Go to project root and execute the following command in Command Prompt
+
+```
+flutter test
+```
