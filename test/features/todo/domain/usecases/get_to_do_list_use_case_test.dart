@@ -28,7 +28,7 @@ void main() {
           id: '3', name: 'cleaning room', status: ToDoTaskStatus.incomplete),
     ];
 
-    test('Should return ListToDo', () async {
+    test('Should return ListToDo when calling success', () async {
       when(toDoRepository.getListToDoTasks())
           .thenAnswer((_) async => Right(list));
 
@@ -39,7 +39,9 @@ void main() {
       expect(response, equals(Right(list)));
     });
 
-    test('Should return EmptyToDoFailure', () async {
+    test(
+        'Should return EmptyToDoFailure when repository returned EmptyToDoFailure',
+        () async {
       when(toDoRepository.getListToDoTasks())
           .thenAnswer((_) async => Left(EmptyToDoFailure()));
 

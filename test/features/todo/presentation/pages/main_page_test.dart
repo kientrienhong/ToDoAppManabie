@@ -76,7 +76,7 @@ void main() {
     await arrangeGetListToDoTask();
   });
 
-  testWidgets('Should go to page with all to do when start app',
+  testWidgets('Should go to page with all to do when starting app',
       (WidgetTester tester) async {
     await tester.pumpWidget(createWidgetUnderTest());
     expect(find.text('All'),

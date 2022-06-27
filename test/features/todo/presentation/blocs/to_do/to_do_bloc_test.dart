@@ -39,7 +39,8 @@ void main() {
   ToDoState state = ToDoState.initial();
   ToDoState stateLoading = state.copyWith(status: ToDoStateStatus.loading);
   group('getListToDo', () {
-    blocTest('Should emit ToDoTaskList into ToDoLoaded',
+    blocTest(
+        'Should emit ToDoTaskList into list and emit success status into status usecase return to do list',
         build: () => toDoBloc,
         act: (ToDoBloc bloc) async {
           when(getToDoListUseCase(NoParams()))
@@ -53,7 +54,8 @@ void main() {
           ];
         });
 
-    blocTest('Should emit Error',
+    blocTest(
+        'Should emit EmptyToDoFailureMsg into errorMsg when usecase returned EmptyToDoFailure',
         build: () => toDoBloc,
         act: (ToDoBloc bloc) async {
           when(getToDoListUseCase(NoParams()))
@@ -73,7 +75,7 @@ void main() {
     const id = '1';
     const toDo =
         ToDoTask(id: id, name: 'coding', status: ToDoTaskStatus.complete);
-    blocTest('Should emit ToDoStatusStatus success',
+    blocTest('Should emit success into status when adding success',
         build: () => toDoBloc,
         act: (ToDoBloc bloc) {
           bloc.add(const AddToDoTask(toDoTask: toDo));
@@ -90,7 +92,8 @@ void main() {
     const statusChangeToDo =
         ToDoTask(id: id, name: 'coding', status: ToDoTaskStatus.incomplete);
 
-    blocTest('Should emit ToDoLoaded',
+    blocTest(
+        'Should emit new list and success into status when updating success',
         build: () => toDoBloc..add(const AddToDoTask(toDoTask: toDo)),
         act: (ToDoBloc bloc) {
           when(updateStatusToDoUseCase(const UpdateStatusToDoParams(id: id)))
@@ -103,7 +106,8 @@ void main() {
               state.copyWith(
                   status: ToDoStateStatus.success, list: [statusChangeToDo])
             ]);
-    blocTest('Should emit UnexpectedMsg into UpdateToDoError',
+    blocTest(
+        'Should emit UnexpectedMsg into errorMsg when usecase returned UnexpectedFailure',
         build: () => toDoBloc,
         act: (ToDoBloc bloc) {
           when(updateStatusToDoUseCase(const UpdateStatusToDoParams(id: id)))
@@ -117,7 +121,8 @@ void main() {
                   status: ToDoStateStatus.failure)
             ]);
 
-    blocTest('Should emit LocalFailureMsg into UpdateToDoError',
+    blocTest(
+        'Should emit LocalFailureMsg into errorMsg when usecase returned LocalFailure',
         build: () => toDoBloc,
         act: (ToDoBloc bloc) {
           when(updateStatusToDoUseCase(const UpdateStatusToDoParams(id: id)))

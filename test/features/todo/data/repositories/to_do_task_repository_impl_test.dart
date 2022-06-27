@@ -28,7 +28,7 @@ void main() {
     const ToDoTaskModel toDoTaskModel =
         ToDoTaskModel(id: '1', name: name, status: ToDoTaskStatus.incomplete);
     const ToDoTask toDoTask = toDoTaskModel;
-    test('Should return ToDoModel when create successfully', () async {
+    test('Should return ToDoModel when creating success', () async {
       when(toDoTaskLocalDataSource.createToDoTask(name))
           .thenAnswer((_) async => toDoTaskModel);
 
@@ -89,7 +89,8 @@ void main() {
       expect(response, equals(const Right(listEntity)));
     });
 
-    test('Should return EmptyToDoFailure when do not have any to do', () async {
+    test('Should return EmptyToDoFailure when getting EmptyToDoException',
+        () async {
       when(toDoTaskLocalDataSource.getToDoTaskList())
           .thenThrow(EmptyToDoException());
 
@@ -104,7 +105,7 @@ void main() {
     const ToDoTaskModel toDoTaskModel = ToDoTaskModel(
         id: id, name: 'coding', status: ToDoTaskStatus.incomplete);
     const ToDoTask toDoTask = toDoTaskModel;
-    test('Should return ToDoModel when update successfully', () async {
+    test('Should return ToDoModel when update success', () async {
       when(toDoTaskLocalDataSource.updateToDoTask(id))
           .thenAnswer((_) async => toDoTaskModel);
 
@@ -115,7 +116,7 @@ void main() {
       expect(response, equals(const Right(toDoTask)));
     });
 
-    test('Should return LocalFailure when get local exception', () async {
+    test('Should return LocalFailure when get LocalException', () async {
       when(toDoTaskLocalDataSource.updateToDoTask(id))
           .thenThrow(LocalException());
 
@@ -125,7 +126,7 @@ void main() {
       expect(response, equals(Left(LocalFailure())));
     });
 
-    test('Should return UnexpectedFailure when get unexpecting exception',
+    test('Should return UnexpectedFailure when get UnexpectedException',
         () async {
       when(toDoTaskLocalDataSource.updateToDoTask(id))
           .thenThrow(UnexpectedException(message: 'Unexpected Message'));

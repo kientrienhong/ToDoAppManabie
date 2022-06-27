@@ -22,7 +22,7 @@ void main() {
     const name = 'coding';
     const ToDoTask toDoTask =
         ToDoTask(id: '1', name: name, status: ToDoTaskStatus.incomplete);
-    test('Should return ToDoTask when update successfully', () async {
+    test('Should return ToDoTask when update successful', () async {
       when(toDoTaskRepository.updateToDoTask(id))
           .thenAnswer((_) async => const Right(toDoTask));
 
@@ -34,7 +34,7 @@ void main() {
     });
 
     test(
-        'Should return UnexptedFailure when create fail with an unexpecting exception',
+        'Should return UnexptedFailure when repository returned UnexptedFailure',
         () async {
       when(toDoTaskRepository.updateToDoTask(id))
           .thenAnswer((_) async => Left(UnexpectedFailure()));

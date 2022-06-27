@@ -48,7 +48,8 @@ void main() {
         expect: () =>
             [CreateToDoLoading(), const CreateToDoLoaded(task: toDo)]);
 
-    blocTest('Should emit EmptyNameMsg into CreateToDoError',
+    blocTest(
+        'Should emit EmptyNameMsg into CreateToDoError when ValidateInput returned EmptyNameFailure',
         build: () => createToDoBloc,
         act: (CreateToDoBloc bloc) {
           when(validateInput.validateName(''))
@@ -61,7 +62,8 @@ void main() {
               const CreateToDoError(error: emptyNameFailureMsg)
             ]);
 
-    blocTest('Should emit ExistedNameMsg into CreateToDoError',
+    blocTest(
+        'Should emit ExistedNameMsg into CreateToDoError when usecase returned ExistedNameFailure',
         build: () => createToDoBloc,
         act: (CreateToDoBloc bloc) {
           when(validateInput.validateName(existedName))
@@ -75,7 +77,8 @@ void main() {
               CreateToDoLoading(),
               const CreateToDoError(error: existedNameFailureMsg)
             ]);
-    blocTest('Should emit LocalFailureMsg into CreateToDoError',
+    blocTest(
+        'Should emit LocalFailureMsg into CreateToDoError when usecase returned LocalFailure',
         build: () => createToDoBloc,
         act: (CreateToDoBloc bloc) {
           when(validateInput.validateName(name))
@@ -88,7 +91,8 @@ void main() {
               CreateToDoLoading(),
               const CreateToDoError(error: localDataSourceFailureMsg)
             ]);
-    blocTest('Should emit UnExpectedMsg into CreateToDoError',
+    blocTest(
+        'Should emit UnExpectedMsg into CreateToDoError when usecase returned UnexpectedFailure',
         build: () => createToDoBloc,
         act: (CreateToDoBloc bloc) {
           when(validateInput.validateName(name))

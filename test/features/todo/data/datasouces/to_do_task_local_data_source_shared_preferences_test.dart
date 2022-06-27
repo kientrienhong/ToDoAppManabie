@@ -24,6 +24,7 @@ void main() {
         ToDoTaskLocalDataSourceSharedPreference(
             sharedPreferences: sharedPreferences);
   });
+
   List<ToDoTaskModel> arrangeReadingFromFile() {
     final json = fixture('to_do_list.json');
     final listToDo = jsonDecode(json) as List<dynamic>;
@@ -67,7 +68,9 @@ void main() {
       expect(
           () => call(validName), throwsA(const TypeMatcher<LocalException>()));
     });
-    test('Should return ExistedNameException', () {
+    test(
+        'Should return ExistedNameException when already had that name in list',
+        () {
       arrangeReadingFromFile();
       final call = toDoTaskLocalDataSourceSharedPreference.createToDoTask;
       expect(() => call(invalidName),
@@ -76,7 +79,7 @@ void main() {
   });
 
   group('getToDoTaskList', () {
-    test('Should return List ToDoModel', () async {
+    test('Should return List ToDoModel when calling success', () async {
       final listToDo = arrangeReadingFromFile();
       final repsponse =
           await toDoTaskLocalDataSourceSharedPreference.getToDoTaskList();
@@ -84,7 +87,7 @@ void main() {
       expect(listToDo, equals(repsponse));
     });
 
-    test('Should return EmptyToDoException', () {
+    test('Should return EmptyToDoException when have no to do yet', () {
       arrangeEmptyList();
       final call = toDoTaskLocalDataSourceSharedPreference.getToDoTaskList;
 

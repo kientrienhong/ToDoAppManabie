@@ -21,7 +21,7 @@ void main() {
     const name = 'coding';
     const ToDoTask toDoTask =
         ToDoTask(id: '1', name: name, status: ToDoTaskStatus.incomplete);
-    test('Should return ToDoTask when create successfully', () async {
+    test('Should return ToDoTask when creating successful', () async {
       when(toDoRepository.createToDoTask(name))
           .thenAnswer((_) async => const Right(toDoTask));
 
@@ -33,7 +33,7 @@ void main() {
     });
 
     test(
-        'Should return UnexptedFailure when create fail with an unexpecting exception',
+        'Should return UnexptedFailure when repository returned Unexceptedfailure',
         () async {
       when(toDoRepository.createToDoTask(name))
           .thenAnswer((_) async => Left(UnexpectedFailure()));
@@ -45,7 +45,7 @@ void main() {
       expect(response, equals(Left(UnexpectedFailure())));
     });
 
-    test('Should return LocalFailure when create fail with an local exception',
+    test('Should return LocalFailure when repository returned LocalFailure',
         () async {
       when(toDoRepository.createToDoTask(name))
           .thenAnswer((_) async => Left(LocalFailure()));
@@ -58,7 +58,7 @@ void main() {
     });
 
     test(
-        'Should return ExistedNameFailure when create fail with an existed name exception',
+        'Should return ExistedNameFailure when repository returned ExistedNameFailure',
         () async {
       when(toDoRepository.createToDoTask(name))
           .thenAnswer((_) async => Left(ExistedNameFailure()));
