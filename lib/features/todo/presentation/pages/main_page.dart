@@ -28,6 +28,7 @@ class _MainPageState extends State<MainPage> {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
+          key: const Key('bottomNavigation'),
           onTap: onTapChangeScreen,
           selectedItemColor: Theme.of(context).secondaryHeaderColor,
           currentIndex: BlocProvider.of<PageChangeBloc>(context, listen: true)
@@ -37,18 +38,21 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(
                 label: 'All',
                 icon: ImageIcon(
+                  key: const Key('bottom-all'),
                   const AssetImage("assets/imgs/all.png"),
                   color: Theme.of(context).secondaryHeaderColor,
                 )),
             BottomNavigationBarItem(
                 label: 'Complete',
                 icon: ImageIcon(
+                  key: const Key('bottom-complete'),
                   const AssetImage("assets/imgs/complete.png"),
                   color: Theme.of(context).secondaryHeaderColor,
                 )),
             BottomNavigationBarItem(
                 label: 'Incomplete',
                 icon: ImageIcon(
+                  key: const Key('bottom-incomplete'),
                   const AssetImage("assets/imgs/incomplete.png"),
                   color: Theme.of(context).secondaryHeaderColor,
                 ))

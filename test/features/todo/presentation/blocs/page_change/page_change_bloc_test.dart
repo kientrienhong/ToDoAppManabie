@@ -14,7 +14,7 @@ void main() {
     expect(bloc.state, equals(const PageChangeState(index: 0)));
   });
 
-  blocTest('Should emit PageChangeLoaded with appropriate',
+  blocTest('Should emit PageChangeLoaded with appropriate index',
       build: () => bloc,
       act: (PageChangeBloc bloc) =>
           bloc.add(PageChangeEvent(index: pageChange)),
