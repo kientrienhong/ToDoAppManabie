@@ -20,18 +20,18 @@ void main() {
     });
 
     test('Should return EmptyNameFailure when receive empty string', () {
-      const validString = '';
+      const inValidString = '';
 
-      final response = validateInput.validateName(validString);
+      final response = validateInput.validateName(inValidString);
 
       expect(response, equals(Left(EmptyNameFailure())));
     });
 
     test('Should return EmptyNameFailure when receive string will only space',
         () {
-      const validString = ' ';
+      const inValidString = ' ';
 
-      final response = validateInput.validateName(validString);
+      final response = validateInput.validateName(inValidString);
 
       expect(response, equals(Left(EmptyNameFailure())));
     });
