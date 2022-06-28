@@ -1,12 +1,12 @@
 # TO DO APP
 
-In this project, I applying TDD Clean Architecture
+In this project, I apply TDD Clean Architecture
 
 ## How to run
 
 **Step 1:**
 
-Download or clone this repo by using the link below:
+Download or clone this repository by using the link below:
 
 ```
 https://github.com/kientrienhong/ToDoAppManabie.git
